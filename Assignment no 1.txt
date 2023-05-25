@@ -1,0 +1,81 @@
+student@student-Veriton-M200-H61:~$ mysql sudo -u root
+ERROR 1698 (28000): Access denied for user 'root'@'localhost'
+student@student-Veriton-M200-H61:~$ sudo mysql -u root
+[sudo] password for student: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.32-0ubuntu0.20.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use GAURI146
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_GAURI146 |
++--------------------+
+| Boats              |
+| Book               |
+| EMP                |
+| Emp_backup         |
+| Reserves           |
+| RollID             |
+| Sailors            |
+| Student            |
+| StudentInfo        |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> desc Student;
++-------+------------+------+-----+---------+-------+
+| Field | Type       | Null | Key | Default | Extra |
++-------+------------+------+-----+---------+-------+
+| Rno   | int        | YES  |     | NULL    |       |
+| Bid   | varchar(4) | YES  |     | NULL    |       |
+| DOI   | date       | YES  |     | NULL    |       |
+| DOR   | date       | YES  |     | NULL    |       |
++-------+------------+------+-----+---------+-------+
+4 rows in set (0.36 sec)
+
+mysql> create table Dept(dno int primary key,dname varchar(20) not null ,loc varchar);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table Dept(dno int(2) primary key,dname varchar(20) not null ,loc varchar(10));
+Query OK, 0 rows affected, 1 warning (1.42 sec)
+
+mysql> insert into Dept (111,'COMP','Facility Center');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '111,'COMP','Facility Center')' at line 1
+mysql> insert into Dept (111,'COMP','FCCenter');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '111,'COMP','FCCenter')' at line 1
+mysql> insert into Dept (111,'COMP','Center');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '111,'COMP','Center')' at line 1
+mysql> insert into Dept values (111,'COMP','Center');
+Query OK, 1 row affected (0.13 sec)
+
+mysql> update Dept set loc='Audi';
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from Dept;
++-----+-------+------+
+| dno | dname | loc  |
++-----+-------+------+
+| 111 | COMP  | Audi |
++-----+-------+------+
+1 row in set (0.00 sec)
+
+mysql> delete from Dept where dno=111;
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from Dept;
+Empty set (0.00 sec)
+
+mysql> 

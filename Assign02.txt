@@ -1,0 +1,131 @@
+/* Assignment No-02  Design at least 10 SQL queries suitable for database application using SQL DML statement : INSERT, UPDATE and DElete with set operator ,and Views */
+
+
+mysql> drop table StudentInfo;
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> create table StudentInfo (Roll int(4),Sname varchar(20),marks decimal(7,3));
+Query OK, 0 rows affected, 1 warning (0.52 sec)
+
+mysql> desc StudentInfo;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Roll  | int          | YES  |     | NULL    |       |
+| Sname | varchar(20)  | YES  |     | NULL    |       |
+| marks | decimal(7,3) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into StudentInfo values (11,'Gauri Hole',85.3),(12,'Jagtap Vidya',90.4);
+Query OK, 2 rows affected (0.12 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from StudentInfo;
++------+--------------+--------+
+| Roll | Sname        | marks  |
++------+--------------+--------+
+|   11 | Gauri Hole   | 85.300 |
+|   12 | Jagtap Vidya | 90.400 |
++------+--------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> update StudentInfo set Sname='Jagtap Vidya D' where Roll=12;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from StudentInfo;
++------+----------------+--------+
+| Roll | Sname          | marks  |
++------+----------------+--------+
+|   11 | Gauri Hole     | 85.300 |
+|   12 | Jagtap Vidya D | 90.400 |
++------+----------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delete from StudentInfo where marks=90.4;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> select * from StudentInfo;
++------+------------+--------+
+| Roll | Sname      | marks  |
++------+------------+--------+
+|   11 | Gauri Hole | 85.300 |
++------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> update StudentInfo set marks=marks+1.0  where Roll=11;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from StudentInfo;
++------+------------+--------+
+| Roll | Sname      | marks  |
++------+------------+--------+
+|   11 | Gauri Hole | 86.300 |
++------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into StudentInfo values (12,'Hivarkar Nikita',80.33),(12,'Jagtap Vidya',90.4);
+Query OK, 2 rows affected (0.13 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select min(marks) from StudentInfo;
++------------+
+| min(marks) |
++------------+
+|     80.330 |
++------------+
+1 row in set (0.02 sec)
+
+mysql> alter table StudentInfo add (Dept varchar(20));
+Query OK, 0 rows affected (0.36 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update StudentInfo set Dept='COMP' where Roll in(11,12);
+Query OK, 3 rows affected (0.09 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> update StudentInfo set Roll=13 where marks=80.33;
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from StudentInfo;
++------+-----------------+--------+------+
+| Roll | Sname           | marks  | Dept |
++------+-----------------+--------+------+
+|   11 | Gauri Hole      | 86.300 | COMP |
+|   13 | Hivarkar Nikita | 80.330 | COMP |
+|   12 | Jagtap Vidya    | 90.400 | COMP |
++------+-----------------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into StudentInfo values (15,'Dhule Om',82.33,'MECH'),(14,'Jadhav Vidya',90.1,'MECH');
+Query OK, 2 rows affected (0.12 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from StudentInfo;
++------+-----------------+--------+------+
+| Roll | Sname           | marks  | Dept |
++------+-----------------+--------+------+
+|   11 | Gauri Hole      | 86.300 | COMP |
+|   13 | Hivarkar Nikita | 80.330 | COMP |
+|   12 | Jagtap Vidya    | 90.400 | COMP |
+|   15 | Dhule Om        | 82.330 | MECH |
+|   14 | Jadhav Vidya    | 90.100 | MECH |
++------+-----------------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> create view RollID as select Roll,Sname from StudentInfo where Dept='COMP';
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> select * from RollID;
++------+-----------------+
+| Roll | Sname           |
++------+-----------------+
+|   11 | Gauri Hole      |
+|   13 | Hivarkar Nikita |
+|   12 | Jagtap Vidya    |
++------+-----------------+
+3 rows in set (0.00 sec)
+
